@@ -1,0 +1,34 @@
+name: buildah-push-CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    container: 
+      image: ixxel/multi-tools-alpine:latest
+      options: --privileged
+    steps:
+    - name: Git clone repo
+      uses: actions/checkout@v2
+    - name: Buildah bud docker image
+      uses: ixxeL-actions/buildah-bud@main
+      with:
+        tag: 'test:v1'
+        file: '""'
+        format: 'oci'
+        build-arg: ''
+        working-dir: '.'
+    - name: Buildah push docker image
+      uses: ixxeL-actions/buildah-push@main
+      with:
+        image-id: 'localhost/test:v1'
+        destination: 'oci:/tmp/test-v1.tar'
+        format: '""'
