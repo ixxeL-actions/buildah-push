@@ -29,6 +29,7 @@ runs:
         buildah push --format ${{ inputs.format }} \
                      ${{ inputs.image-id }} \
                      ${{ inputs.transport }}:${{ inputs.destination }}
+        ls -la ${{ inputs.destination }}
       shell: bash
       env:
         RED: \033[1;31m
