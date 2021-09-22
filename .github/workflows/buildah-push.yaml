@@ -30,5 +30,6 @@ jobs:
       uses: ixxeL-actions/buildah-push@main
       with:
         image-id: 'localhost/test:v1'
-        destination: 'oci:/tmp/test-v1.tar'
+        transport: 'oci-archive'
+        destination: '/tmp/test-v1.tar'
         format: '""'

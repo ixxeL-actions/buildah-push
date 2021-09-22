@@ -5,6 +5,9 @@ inputs:
   image-id:
     description: 'ID or full name of the image to push'
     required: true
+  transport:
+    description: 'transport type for destination (containers-storage,dir,docker,docker-archive,docker-daemon,oci,oci-archive,ostree)'
+    required: true
   destination:
     description: 'The Image "DESTINATION" uses a "transport":"details" format'
     required: true
@@ -21,11 +24,11 @@ runs:
         echo -e "${BLUE}[ STEP - PUSHING IMAGE ] > Pushing docker image ${{ inputs.image-id }} with buildah.${BLANK}"
         echo -e "${CYAN}[ INFO ] > Buildah version.${BLANK}"
         buildah --version
-        echo -e "${YELLOW}[ EXECUTING ] > Executing push of ${{ inputs.image-id }}.${BLANK}"
+        echo -e "${YELLOW}[ EXECUTING ] > Executing push of ${{ inputs.image-id }} to ${{ inputs.destination }}.${BLANK}"
 
         buildah push --format ${{ inputs.format }} \
                      ${{ inputs.image-id }} \
-                     ${{ inputs.destination }}
+                     ${{ inputs.transport }}:${{ inputs.destination }}
       shell: bash
       env:
         RED: \033[1;31m
