@@ -24,7 +24,7 @@ runs:
         echo -e "${BLUE}[ STEP - PUSHING IMAGE ] > Pushing docker image ${{ inputs.image-id }} with buildah.${BLANK}"
         echo -e "${CYAN}[ INFO ] > Buildah version.${BLANK}"
         buildah --version
-        echo -e "${YELLOW}[ EXECUTING ] > Executing push of ${{ inputs.image-id }} to ${{ inputs.destination }}.${BLANK}"
+        echo -e "${YELLOW}[ EXECUTING ] > Executing push of ${{ inputs.image-id }} to ${{ inputs.destination }} with ${{ inputs.transport }} transport type.${BLANK}"
 
         buildah push --format ${{ inputs.format }} \
                      ${{ inputs.image-id }} \
