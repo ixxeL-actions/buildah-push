@@ -1,18 +1,19 @@
+---
 name: buildah-push-CI
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     branches:
-      - main
+    - main
 jobs:
   test:
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    container: 
+    container:
       image: ixxel/multi-tools-alpine:latest
       options: --privileged
     steps:
@@ -21,15 +22,15 @@ jobs:
     - name: Buildah bud docker image
       uses: ixxeL-actions/buildah-bud@main
       with:
-        tag: 'test:v1'
+        tag: test:v1
         file: '""'
-        format: 'oci'
+        format: oci
         build-arg: ''
-        working-dir: '.'
+        working-dir: .
     - name: Buildah push docker image
       uses: ixxeL-actions/buildah-push@main
       with:
-        image-id: 'localhost/test:v1'
-        transport: 'oci-archive'
-        destination: '/tmp/test-v1.tar'
+        image-id: localhost/test:v1
+        transport: oci-archive
+        destination: /tmp/test-v1.tar
         format: '""'
